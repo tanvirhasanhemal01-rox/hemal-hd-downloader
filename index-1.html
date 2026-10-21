@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0866ff">
+<title>Hemal HD Downloader</title>
+<style>
+:root{color-scheme:dark;--bg:#08111f;--panel:#101d30;--muted:#9fb0c8;--blue:#1877f2;--line:#263750}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at top,#142c50,#08111f 60%);color:#f4f7ff;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;display:flex;flex-direction:column}
+header{width:min(900px,100%);margin:auto;padding:22px 20px;display:flex;align-items:center;gap:12px}.logo{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,#49a1ff,#0866ff);font-size:22px}.brand{font-weight:800}.tag{font-size:12px;color:var(--muted)}
+main{width:min(760px,100%);margin:auto;padding:24px 20px 48px;flex:1}.hero{text-align:center}.pill{display:inline-block;border:1px solid #2b4263;background:#122440;color:#b9d9ff;padding:7px 12px;border-radius:999px;font-size:12px}
+h1{font-size:clamp(32px,7vw,52px);line-height:1.1;margin:20px 0 12px;letter-spacing:-1px}h1 span{color:#69adff}.intro{color:var(--muted);line-height:1.7;margin:0 auto 26px;max-width:610px}
+.panel{background:#101d30;border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:0 24px 70px #0004;margin-bottom:16px}label{display:block;font-size:14px;font-weight:700;margin-bottom:9px}
+.inputrow{display:flex;gap:10px}input{flex:1;min-width:0;background:#081525;border:1px solid #30415b;border-radius:12px;padding:14px;color:#fff;font:inherit;outline:none}input:focus{border-color:#69adff}
+button,.action{display:inline-block;border:0;border-radius:12px;padding:13px 17px;background:var(--blue);color:#fff;font:inherit;font-weight:750;cursor:pointer;text-decoration:none;text-align:center}button:hover,.action:hover{filter:brightness(1.1)}.secondary{background:#22344f}.hint{color:var(--muted);font-size:12px;line-height:1.6;margin:10px 2px 0}
+.status{display:none;margin-top:14px;border-radius:12px;padding:12px 14px;font-size:14px;line-height:1.6}.status.show{display:block}.info{background:#122b48;border:1px solid #28517d;color:#cde5ff}.error{background:#3b1b28;border:1px solid #743047;color:#ffd6df}.preview{display:none}.preview.show{display:block}.preview video{width:100%;max-height:380px;background:#000;border-radius:12px;margin-top:12px}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}.features{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}.feature{background:#0e1a2b;border:1px solid var(--line);border-radius:15px;padding:15px}.feature b{display:block;font-size:14px;margin:7px 0}.feature p{color:var(--muted);font-size:12px;line-height:1.5;margin:0}.notice{font-size:12px;color:#aebed3;line-height:1.7;margin-top:20px;padding:14px;border-left:3px solid #4d8de8;background:#0d1929;border-radius:0 10px 10px 0}
+footer{text-align:center;padding:20px;color:#8293ac;font-size:12px;border-top:1px solid #1c2a40}
+@media(max-width:560px){.inputrow{flex-direction:column}button{width:100%}.features{grid-template-columns:1fr}.feature{display:flex;gap:12px;align-items:flex-start}.feature b{margin-top:0}}
+</style>
+</head>
+<body>
+<header><div class="logo" aria-hidden="true">▶</div><div><div class="brand">HEMAL HD DOWNLOADER</div><div class="tag">Video link helper</div></div></header>
+<main>
+<section class="hero"><div class="pill">✦ Simple · Fast · Mobile friendly</div><h1>ভিডিও লিংক দাও,<br><span>সহজে যাচাই করো</span></h1><p class="intro">Facebook লিংক যাচাই করো অথবা অনুমতিপ্রাপ্ত সরাসরি MP4 ভিডিও লিংক প্রিভিউ করো।</p></section>
+<section class="panel">
+<form id="linkForm">
+<label for="videoUrl">ভিডিও লিংক</label>
+<div class="inputrow"><input id="videoUrl" type="url" placeholder="Facebook বা সরাসরি .mp4 URL পেস্ট করো" required autocomplete="url"><button type="submit">লিংক যাচাই</button></div>
+<p class="hint">শুধু নিজের বা ব্যবহারের অনুমতি আছে এমন ভিডিওর লিংক ব্যবহার করো।</p>
+</form>
+<div id="status" class="status" role="status" aria-live="polite"></div>
+<div id="preview" class="preview"><video id="video" controls playsinline preload="metadata"></video><div class="actions"><a id="openLink" class="action secondary" href="#" target="_blank" rel="noopener noreferrer">নতুন ট্যাবে খোলো</a><a id="downloadLink" class="action" href="#" download="video.mp4">ডাউনলোডের চেষ্টা করো</a></div><p class="hint">ডাউনলোড বাটনটি বাইরের সার্ভারের নীতিমালা/ব্রাউজারের কারণে কাজ নাও করতে পারে।</p></div>
+</section>
+<section class="features"><div class="feature"><div>🔗</div><div><b>লিংক যাচাই</b><p>Facebook ডোমেইন বা সরাসরি MP4 URL চিনতে চেষ্টা করে।</p></div></div><div class="feature"><div>▶️</div><div><b>ভিডিও প্রিভিউ</b><p>ব্রাউজার সমর্থন করলে সরাসরি MP4 চালায়।</p></div></div><div class="feature"><div>🔒</div><div><b>Privacy first</b><p>এই পেজ লিংক কোনো সার্ভারে পাঠায় না।</p></div></div></section>
+<div class="notice"><b>সীমাবদ্ধতা:</b> Facebook লিংক যাচাই করা মানে ভিডিও ডাউনলোডযোগ্য হওয়া নয়। এই স্ট্যাটিক পেজ Facebook থেকে ভিডিও সংগ্রহ করে না। Facebook ভিডিওর জন্য কেবল অনুমোদিত/অফিশিয়ালি সমর্থিত অ্যাক্সেস ব্যবহার করো। বাইরের MP4 সার্ভারে CORS বা ডাউনলোড হেডার না থাকলে ডাউনলোড কাজ নাও করতে পারে।</div>
+</main><footer>© <span id="year"></span> Hemal HD Downloader</footer>
+<script>
+const form=document.getElementById('linkForm'),input=document.getElementById('videoUrl'),statusBox=document.getElementById('status'),preview=document.getElementById('preview'),video=document.getElementById('video'),openLink=document.getElementById('openLink'),downloadLink=document.getElementById('downloadLink');
+document.getElementById('year').textContent=new Date().getFullYear();
+form.addEventListener('submit',e=>{e.preventDefault();clear();let u;try{u=new URL(input.value.trim())}catch{show('সঠিক পূর্ণ URL দাও, যেমন https://example.com/video.mp4','error');return}
+if(!['https:','http:'].includes(u.protocol)){show('শুধু HTTP/HTTPS লিংক গ্রহণযোগ্য।','error');return}
+const host=u.hostname.toLowerCase().replace(/^www\./,'');
+if(host==='facebook.com'||host.endsWith('.facebook.com')||host==='fb.watch'){
+ show('এটি Facebook লিংক। এই পেজ লিংক যাচাই করতে পারে, কিন্তু Facebook থেকে ভিডিও সংগ্রহ/ডাউনলোড করে না। অনুমোদিত সোর্স বা অফিসিয়াল ডাউনলোড অপশন ব্যবহার করো।','info');return;
+}
+if(u.pathname.toLowerCase().endsWith('.mp4')){
+ show('MP4 ফাইলের মতো দেখাচ্ছে। প্রিভিউ চালু করার চেষ্টা করছি—সার্ভার অনুমতি না দিলে কাজ নাও করতে পারে।','info');
+ video.src=u.href;openLink.href=u.href;downloadLink.href=u.href;preview.classList.add('show');
+ video.onerror=()=>show('এই ভিডিওটি ব্রাউজারে চালানো যায়নি। লিংকটি ভুল হতে পারে, লগইন লাগতে পারে, অথবা সার্ভার ক্রস-অরিজিন অ্যাক্সেস বন্ধ রেখেছে।','error');
+ video.onloadedmetadata=()=>show('ভিডিও প্রিভিউ প্রস্তুত। কোয়ালিটি সোর্সের ওপর নির্ভর করে।','info');return;
+}
+show('এই লিংকটি Facebook নয় এবং URL-এ .mp4 পথও নেই। সরাসরি MP4 ফাইলের URL ব্যবহার করো।','error');
+});
+function show(msg,type){statusBox.textContent=msg;statusBox.className='status show '+type}
+function clear(){statusBox.textContent='';statusBox.className='status';preview.classList.remove('show');video.onerror=null;video.onloadedmetadata=null;video.removeAttribute('src');video.load();openLink.href='#';downloadLink.href='#'}
+</script>
+</body></html>
